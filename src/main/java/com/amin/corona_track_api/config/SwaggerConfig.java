@@ -1,5 +1,6 @@
 package com.amin.corona_track_api.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -19,7 +20,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("Covid 19 Tracker")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.amin.corona_track_api.controller"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)).paths(PathSelectors.any())
                 .paths(PathSelectors.any())
                 .build().apiInfo(apiEndPointsInfo());
     }
