@@ -8,10 +8,6 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class CoronaTrackApiApplication {
 
-    @Bean
-    RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(CoronaTrackApiApplication.class, args);

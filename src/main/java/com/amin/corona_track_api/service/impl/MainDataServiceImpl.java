@@ -13,10 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,10 +54,15 @@ public class MainDataServiceImpl implements MainDataService {
             LocationData locationStat = new LocationData();
             locationStat.setState(record.get("Province/State"));
             locationStat.setCountry(record.get("Country/Region"));
-            int latestCases = Integer.parseInt(record.get(record.size() - 1));
+
+            String lastDay = record.get(record.size() - 1);
+
+            int latestCases = Integer.parseInt(lastDay.isEmpty() ? "0" : lastDay );
             int prevDayCases = Integer.parseInt(record.get(record.size() - 2));
-            locationStat.setLatestTotalCases(latestCases);
-            locationStat.setDiffFromPrevDay(latestCases - prevDayCases);
+
+            locationStat.setLatestTotalCases((latestCases != 0) ?  latestCases : prevDayCases );
+            locationStat.setDiffFromPrevDay((latestCases != 0) ? latestCases - prevDayCases : 0);
+
             newStats.add(locationStat);
         }
         this.allStats = newStats;
