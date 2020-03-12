@@ -8,31 +8,22 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class MainControllerApi {
+@RequestMapping("/confirms")
+public class ConfirmsController {
 
     @Autowired
     MainDataService mainDataService;
     @Autowired
     MailService mailService;
 
-    @Value("${build.version}")
-    private String versionApp;
-
-    @RequestMapping("/")
-    public String versionApp(){
-     return  versionApp;
-    }
 
     @ApiOperation(value = "Get All Stats")
-    @RequestMapping(value = "/getAll",method = RequestMethod.GET)
+    @GetMapping
     public List<LocationData> getAll(){
         return mainDataService.getAll();
     }
