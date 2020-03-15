@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/confirms")
-public class ConfirmsController {
+@RequestMapping("/api/v1/deaths")
+public class DeathsController {
 
     @Autowired
-    @Qualifier(value = "confirmsServiceImpl")
+    @Qualifier(value = "deathsServiceImpl")
     VirusDataService virusDataService;
 
     @ApiOperation(value = "Get All Stats")
@@ -36,10 +36,9 @@ public class ConfirmsController {
         return virusDataService.getByState(state);
     }
 
-    @ApiOperation(value = "Get Total Confirms")
+    @ApiOperation(value = "Get Total Deaths")
     @RequestMapping(value = "/total",method = RequestMethod.GET)
     public Map<String, String> getTotalConfirms(){
         return virusDataService.getTotal();
     }
-
 }

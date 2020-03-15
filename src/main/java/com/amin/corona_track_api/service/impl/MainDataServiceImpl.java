@@ -2,6 +2,7 @@ package com.amin.corona_track_api.service.impl;
 
 import com.amin.corona_track_api.model.LocationData;
 import com.amin.corona_track_api.service.MainDataService;
+import com.amin.corona_track_api.service.VirusDataService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MainDataServiceImpl implements MainDataService {
@@ -23,49 +22,33 @@ public class MainDataServiceImpl implements MainDataService {
     @Autowired
     RestTemplate restTemplate;
 
-    String baseURL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
-
-
-    private List<LocationData> allStats = new ArrayList<>();
-
-    public List<LocationData> getAll() {
-        return allStats;
-    }
-
     @Override
-    public List<LocationData> getByCountries(String country) {
-        return allStats.stream()
-                .filter(c->c.getCountry().equals(country))
-                .collect(Collectors.toList());
-    }
-
-    @PostConstruct
-    public void getVirusData() throws IOException, InterruptedException {
+    public List<LocationData> getAllDada (String url) throws IOException {
         List<LocationData> newStats = new ArrayList<>();
 
         ResponseEntity<String> response = restTemplate
-                .exchange(baseURL,
+                .exchange(url,
                         HttpMethod.GET,
                         null, String.class);
         StringReader csvBodyReader = new StringReader(response.getBody());
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
-
         for (CSVRecord record : records) {
             LocationData locationStat = new LocationData();
             locationStat.setState(record.get("Province/State"));
             locationStat.setCountry(record.get("Country/Region"));
 
+            //get last Date
             String lastDay = record.get(record.size() - 1);
-
+            //parse
             int latestCases = Integer.parseInt(lastDay.isEmpty() ? "0" : lastDay );
             int prevDayCases = Integer.parseInt(record.get(record.size() - 2));
 
-            locationStat.setLatestTotalCases((latestCases != 0) ?  latestCases : prevDayCases );
+            locationStat.setLatestTotalCases(prevDayCases);
             locationStat.setDiffFromPrevDay((latestCases != 0) ? latestCases - prevDayCases : 0);
 
             newStats.add(locationStat);
         }
-        this.allStats = newStats;
-
+        return newStats;
     }
+
 }
