@@ -4,10 +4,8 @@ import com.amin.corona_track_api.model.LocationData;
 import com.amin.corona_track_api.service.MainDataService;
 import com.amin.corona_track_api.service.VirusDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,19 +14,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class RecoversServiceImpl implements VirusDataService {
+@Scope(value = "prototype")
+public class VirusDataServiceImpl implements VirusDataService {
 
     @Autowired
     private MainDataService mainDataService;
 
-    @Value(value = "${covid19.url.recovers}")
-    private String baseURL;
-
     private List<LocationData> allStats = new ArrayList<>();
 
-    @PostConstruct
-    private void getVirusData() throws IOException, InterruptedException {
-        this.allStats = mainDataService.getAllDada(baseURL);
+
+    @Override
+    public void setBaseURl(String url) {
+        try {
+            this.allStats = mainDataService.getAllDada(url);
+        } catch ( IOException ioException) {
+            //todo: handle exception
+        }
+
     }
 
     @Override
@@ -57,8 +59,8 @@ public class RecoversServiceImpl implements VirusDataService {
                 .mapToInt(Integer::intValue)
                 .sum();
 
-        return new HashMap<String, String>() {{
-            put("Total Recovers", sum.toString());
+        return new HashMap<>() {{
+            put("Total ", sum.toString());
         }};
     }
 }
