@@ -16,6 +16,9 @@
 
     <properties>
         <java.version>11</java.version>
+        <sonar.projectKey>AminPlusPlus_corona_track_api</sonar.projectKey>
+        <sonar.organization>aminplusplus</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>

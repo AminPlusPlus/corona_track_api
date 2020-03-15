@@ -2,7 +2,6 @@ package com.amin.corona_track_api.service.impl;
 
 import com.amin.corona_track_api.model.LocationData;
 import com.amin.corona_track_api.service.MainDataService;
-import com.amin.corona_track_api.service.VirusDataService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
