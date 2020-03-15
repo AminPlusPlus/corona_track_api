@@ -6,6 +6,7 @@ import java.util.Map;
 
 public interface VirusDataService {
 
+    void setBaseURl(String url);
     List<LocationData> getAll();
     List<LocationData> getByCountries(String country);
     List<LocationData> getByState(String state);
