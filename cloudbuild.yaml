@@ -1,0 +1,6 @@
+steps:
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['install']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--tag=gcr.io/covid-19-273501D/spring-boot', '.']
+images: ['gcr.io/covid-19-273501/spring-boot']
