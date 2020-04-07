@@ -8,6 +8,7 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.amin</groupId>
     <artifactId>corona_track_api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -56,6 +57,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
