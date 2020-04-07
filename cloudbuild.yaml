@@ -1,6 +1,4 @@
 steps:
-  - name: 'gcr.io/cloud-builders/mvn'
+  - name: maven:3.6.0-jdk-11-slim
+    entrypoint: 'mvn'
     args: ['install']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--tag=gcr.io/covid-19-273501D/spring-boot', '.']
-images: ['gcr.io/covid-19-273501/spring-boot']
