@@ -2,8 +2,10 @@ package com.amin.corona_track_api.model;
 
 public class LocationData {
 
-    private String state;
-    private String country;
+    private String state = "";
+    private String country="";
+    private double lon;
+    private double lat;
     private int latestTotalCases;
     private int diffFromPrevDay;
 
@@ -37,6 +39,22 @@ public class LocationData {
 
     public void setDiffFromPrevDay(int diffFromPrevDay) {
         this.diffFromPrevDay = diffFromPrevDay;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
     @Override
