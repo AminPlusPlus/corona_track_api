@@ -3,6 +3,5 @@ steps:
     entrypoint: 'mvn'
     args: ['install']
 
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: gcr.io/cloud-builders/gcloud
     args: ['app', 'deploy']
-   
