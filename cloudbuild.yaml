@@ -3,5 +3,5 @@ steps:
     entrypoint: 'mvn'
     args: ['install']
 
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy']
+  - name: 'gcr.io/covid-19-273501/gcloud-maven'
+    args: ['mvn', 'appengine:deploy']
