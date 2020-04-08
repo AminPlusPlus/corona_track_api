@@ -29,21 +29,17 @@ public class MainDataServiceImpl implements MainDataService {
                 .exchange(url,
                         HttpMethod.GET,
                         null, String.class);
+
         StringReader csvBodyReader = new StringReader(response.getBody());
+
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
         for (CSVRecord record : records) {
 
-
             LocationData locationStat = new LocationData();
-
-            System.out.println(record.get("Province/State"));
-            System.out.println(record.get("Country/Region"));
-
-            //String state = (record.get("Province/State").isEmpty()) ? " " : record.get("Province/State") ;
-            String country = (record.get("Country/Region").isEmpty()) ? " " : record.get("Country/Region");
-
-            locationStat.setState("");
-            locationStat.setCountry(country);
+            locationStat.setState(record.get("Province/State"));
+            locationStat.setCountry(record.get("Country/Region"));
+            locationStat.setLat(Double.parseDouble(record.get("Lat")));
+            locationStat.setLon(Double.parseDouble(record.get("Long")));
 
             //get last Date
             String lastDay = record.get(record.size() - 1);
