@@ -85,6 +85,20 @@
         </dependency>
     </dependencies>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache.snapshots</id>
+            <name>Apache Snapshots</name>
+            <url>http://repository.apache.org/content/groups/snapshots-group/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>
