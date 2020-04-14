@@ -1,4 +1,19 @@
+#steps:
+#  - name: maven:3.6.0-jdk-11-slim
+#    entrypoint: 'mvn'
+#    args: ['install']
 steps:
-  - name: maven:3.6.0-jdk-11-slim
-    entrypoint: 'mvn'
-    args: ['install']
+  # Step 1:
+  - name: 'gcr.io/cloud-builders/mvn'
+    entrypoint: bash
+    args: ['./scripts/build.bash']
+    volumes:
+      - name: 'jar'
+        path: /jar
+  # Step 2:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: bash
+    args: ['./scripts/deploy.bash', '$_APP_NAME', '$_ENV_NAME', '$_REGION']
+    volumes:
+      - name: 'jar'
+        path: /jar
