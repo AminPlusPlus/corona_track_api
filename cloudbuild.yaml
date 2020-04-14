@@ -12,4 +12,4 @@ steps:
     args: ['package']
 
   - name: 'gcr.io/cloud-builders/mvn'
-    args: ['appengine:deploy']
+    args: ['deploy']
